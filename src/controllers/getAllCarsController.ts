@@ -8,10 +8,10 @@ export const getAllCarsController = (req: Request, res: Response) => {
         const filteredCars = allCars.map((car)=>{
             return {
                 id: car.getUuid(),
-                marca: car.getBrand(),
-                modelo: car.getModel(),
-                ano: car.getYear(),
-                cor: car.getColor()
+                brand: car.getBrand(),
+                model: car.getModel(),
+                year: car.getYear(),
+                color: car.getColor()
             }
         })
         if(!filteredCars.length){

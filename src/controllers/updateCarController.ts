@@ -5,9 +5,9 @@ import { cars } from "../db/cars";
 export const updateCarController = (req: Request, res: Response) => {
     try {
         const uuidToUpdate = req.params.uuid
-        const {marca, modelo, ano, cor} = req.body
+        const {brand, model, year, color} = req.body
 
-        if (!marca || !modelo || !ano || !cor) {
+        if (!brand || !model || !year || !color) {
             throw new Error('Todos os parâmetros (marca, modelo, ano, cor) são obrigatórios.');
         }
         const carUpdate = cars.findIndex((car)=> car.getUuid() === uuidToUpdate)
@@ -16,9 +16,9 @@ export const updateCarController = (req: Request, res: Response) => {
             res.status(404).json({message: "Não encontramos o veículo"})
         }
 
-        cars[carUpdate].updateCar(marca, modelo, ano, cor)
+        cars[carUpdate].updateCar(brand, model, year, color)
 
-        res.status(200).json({message: 'Carro atualizado com sucesso'})
+        return res.status(200).json({message: 'Carro atualizado com sucesso'})
 
     } catch (error: any) {
         res.status(400).json({message: error.message})
