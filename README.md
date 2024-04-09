@@ -1,1 +1,1 @@
-Desafio de criar uma APi simples de carros
+Desafio de criar uma API de tarefas
