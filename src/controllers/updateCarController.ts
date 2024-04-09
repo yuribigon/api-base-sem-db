@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
-import { cars } from "../db/cars";
+import { tasks } from "../db/tasks";
 
 
-export const updateCarController = (req: Request, res: Response) => {
+export const updateTaskController = (req: Request, res: Response) => {
     try {
         const uuidToUpdate = req.params.uuid
-        const {brand, model, year, color} = req.body
+        const {title, description} = req.body
 
-        if (!brand || !model || !year || !color) {
-            throw new Error('Todos os parâmetros (marca, modelo, ano, cor) são obrigatórios.');
+        if (!title || !description) {
+            throw new Error('Todos os parâmetros (título e descrição) são obrigatórios.');
         }
-        const carUpdate = cars.findIndex((car)=> car.getUuid() === uuidToUpdate)
+        const taskUpdate = tasks.findIndex((task)=> task.getUuid() === uuidToUpdate)
 
-        if(carUpdate === -1){
-            res.status(404).json({message: "Não encontramos o veículo"})
+        if(taskUpdate === -1){
+            res.status(404).json({message: "Não encontramos a tarefa"})
         }
 
-        cars[carUpdate].updateCar(brand, model, year, color)
+        tasks[taskUpdate].updateTask(title, description)
 
-        return res.status(200).json({message: 'Carro atualizado com sucesso'})
+        return res.status(200).json({message: 'Tarefa atualizada com sucesso'})
 
     } catch (error: any) {
         res.status(400).json({message: error.message})

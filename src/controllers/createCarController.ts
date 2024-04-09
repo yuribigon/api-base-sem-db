@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { Car } from "../models/car";
-import { cars } from "../db/cars";
+import { Task } from "../models/task";
+import { tasks } from "../db/tasks";
 
-export const createCarController = (req: Request, res: Response) =>{
+export const createTaskController = (req: Request, res: Response) =>{
     try {
-        const {brand, model, year, color} = req.body
-        if (!brand || !model || !year || !color) {
-            throw new Error('Todos os parâmetros (marca, modelo, ano, cor) são obrigatórios.');
+        const {title, description} = req.body
+        if (!title || !description) {
+            throw new Error('Todos os parâmetros (título e descrição) são obrigatórios.');
         }
 
-        const newCar = new Car(brand, model, year, color)
+        const newTask = new Task(title, description)
 
-        cars.push(newCar)
+        tasks.push(newTask)
 
-        res.status(200).json({ message: 'Carro criado com sucesso'})
+        res.status(200).json({ message: 'Tarefa adicionada com sucesso'})
     } catch (error: any) {
         res.status(400).json({ message: error.message})
     }

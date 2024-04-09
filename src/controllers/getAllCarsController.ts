@@ -1,23 +1,21 @@
 import { Request, Response } from "express"
-import { selectAllCars } from "../db/cars"
+import { selectAllTasks } from "../db/tasks"
 
 
-export const getAllCarsController = (req: Request, res: Response) => {
+export const getAllTasksController = (req: Request, res: Response) => {
     try {
-        const allCars = selectAllCars();
-        const filteredCars = allCars.map((car)=>{
+        const allTasks = selectAllTasks();
+        const filteredTasks = allTasks.map((task)=>{
             return {
-                id: car.getUuid(),
-                brand: car.getBrand(),
-                model: car.getModel(),
-                year: car.getYear(),
-                color: car.getColor()
+                id: task.getUuid(),
+                title: task.getTitle(),
+                description: task.getDescription(),
             }
         })
-        if(!filteredCars.length){
-            res.status(404).json({message: 'Nenhum carro encontrado'})
+        if(!filteredTasks.length){
+            res.status(404).json({message: 'Nenhuma tarefa encontrada'})
         }
-        res.status(200).json(filteredCars)
+        res.status(200).json(filteredTasks)
     } catch (error: any) {
         return res.status(400).json({message: error.message})
     }
